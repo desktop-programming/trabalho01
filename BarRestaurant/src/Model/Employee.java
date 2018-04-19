@@ -6,9 +6,9 @@ public class Employee {
     int id;
     String phone;
     
-    public Employee(String name, String address, String phone){
+    public Employee(String name, String street, int number, String zipCode, String city, String neighborhood, String uf, String phone){
         this.name = name;
-        this.address = address;
+        this.address = street+(", ")+Integer.toString(number)+(", ")+neighborhood+(", ")+zipCode+(", ")+city+(" - ")+uf;
         this.phone = phone;
         id++;
     }
