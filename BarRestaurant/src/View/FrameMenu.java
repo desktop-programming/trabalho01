@@ -15,6 +15,7 @@ public class FrameMenu extends javax.swing.JFrame {
     
     public FrameMenu() throws ClassNotFoundException {
         initComponents();
+        this.setTitle("Menu");
         this.setSize(600,596);
         this.setLocationRelativeTo(null);
     }

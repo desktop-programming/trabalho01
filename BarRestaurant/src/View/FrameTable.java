@@ -15,6 +15,7 @@ public class FrameTable extends javax.swing.JFrame {
     
      public FrameTable() throws ClassNotFoundException {
         initComponents();
+        this.setTitle("Mesa");
         this.setSize(600,596);
         this.setLocationRelativeTo(null);
     }

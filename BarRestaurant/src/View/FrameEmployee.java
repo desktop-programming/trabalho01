@@ -16,6 +16,7 @@ public class FrameEmployee extends javax.swing.JFrame {
     
     public FrameEmployee() throws ClassNotFoundException {
         initComponents();
+        this.setTitle("Funcionário");
         this.setSize(598, 596);
         this.setLocationRelativeTo(null);
     }

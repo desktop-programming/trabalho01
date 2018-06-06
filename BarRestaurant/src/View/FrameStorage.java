@@ -18,6 +18,7 @@ public class FrameStorage extends javax.swing.JFrame {
 
     public FrameStorage() throws ClassNotFoundException {
         initComponents();
+        this.setTitle("Estoque");
         this.setSize(600,596);
         this.setLocationRelativeTo(null);
     }
