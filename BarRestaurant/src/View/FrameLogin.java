@@ -11,8 +11,7 @@ public class FrameLogin extends javax.swing.JFrame {
      */
     public FrameLogin() {
         initComponents();
-        this.setTitle("Login");
-        this.setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
     }
 
     /**

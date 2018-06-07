@@ -22,7 +22,7 @@ public class TableDAO implements ImplementTable{
             
     @Override
     public void insert(Table table) {
-        this.db.execute("INSERT INTO tables (id) VALUES (?)", table.getId());
+        this.db.execute("INSERT INTO tables (table_id) VALUES (?)", table.getId());
     }
 
     @Override
@@ -32,16 +32,16 @@ public class TableDAO implements ImplementTable{
 
     @Override
     public void delete(int id) {
-        this.db.execute("DELETE FROM tables WHERE id=?", id);
+        this.db.execute("DELETE FROM tables WHERE table_id=?", id);
     }
 
     @Override
     public List<Table> getTable(int number) {
         list = new ArrayList<Table>();
         try {
-            ResultSet rs = this.db.query("SELECT * FROM tables WHERE id = '" + number + "'");
+            ResultSet rs = this.db.query("SELECT * FROM tables WHERE table_id = '" + number + "'");
             while (rs.next()) { 
-                Table table = new Table(rs.getInt("id"), rs.getDouble("total"));
+                Table table = new Table(rs.getInt("table_id"), rs.getDouble("total"));
                 list.add(table);
             }
             return list;
@@ -54,10 +54,10 @@ public class TableDAO implements ImplementTable{
     @Override
     public List<Table> getAllTable() {
         list = new ArrayList<Table>();
-        ResultSet rs = this.db.query("SELECT * FROM tables ORDER BY id");
+        ResultSet rs = this.db.query("SELECT * FROM tables ORDER BY table_id");
         try {
             while(rs.next()){
-                Table table = new Table(rs.getInt("id"), rs.getDouble("total"));
+                Table table = new Table(rs.getInt("table_id"), rs.getDouble("total"));
                 list.add(table);
             }
             return list;
