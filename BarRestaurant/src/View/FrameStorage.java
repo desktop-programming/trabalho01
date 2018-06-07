@@ -212,7 +212,8 @@ public class FrameStorage extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
         if(verifyText()){
-            storage.add(new Storage(txtItem.getText(), Integer.parseInt(txtQuantity.getText())));
+            storage.add(new Storage(txtItem.getText(), Integer.parseInt(txtQuantity.getText()),
+            Integer.parseInt(txtID.getText() )));
             JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -289,4 +290,29 @@ public class FrameStorage extends javax.swing.JFrame {
     private javax.swing.JTextPane txtItem;
     private javax.swing.JTextPane txtQuantity;
     // End of variables declaration//GEN-END:variables
+
+    public void setTextQuantity(String string) {
+        txtQuantity.setText(string);
+    }
+
+    public void setTextId(String string) {
+        txtID.setText(string);
+    }
+
+    public void setTextItem(String string) {
+        txtItem.setText(string);
+    }
+
+    public String getTextQuantity() {
+        return txtQuantity.getText();
+    }
+
+    public String getTextId() {
+        return txtID.getText();
+    }
+    
+    public String getTextItem(){
+        return txtItem.getText();
+    }
+
 }

@@ -5,9 +5,6 @@
  */
 package Model.DAO;
 
-
-package Model.DAO;
-
 import Model.Interfaces.ImplementStorage;
 import Configurations.ConfigurationsMySQL;
 import DataBase.DataBase;
@@ -25,33 +22,33 @@ public class StorageDAO implements ImplementStorage{
             
     @Override
     public void insert(Storage storage) {
-        this.db.execute("INSERT INTO java_storage (name) VALUES (?)", storage.getName());
+        this.db.execute("INSERT INTO storage (storage_item, storage_id, storage_quantity) VALUES (?,?,?)",
+                storage.getName(), storage.getId(), storage.getQuantity());
     }
 
     @Override
     public void update(Storage storage) {
-        this.db.execute("UPDATE java_storage SET name=? WHERE id=?", storage.getName(), storage.getId());
+        this.db.execute("UPDATE storage SET storage_quantity=? WHERE storage_id=?", storage.getQuantity(), storage.getId());
     }
 
     @Override
     public void delete(int id) {
-        this.db.execute("DELETE FROM java_storage WHERE id=?", id);
+        this.db.execute("DELETE FROM storage WHERE storage_id=?", id);
     }
 
     @Override
     public List<Storage> getStorage(String name) {
         list = new ArrayList<Storage>();
         try {
-            ResultSet rs = this.db.query("SELECT * FROM java_storage WHERE name LIKE '%" + name + "%'");
+            ResultSet rs = this.db.query("SELECT * FROM storage WHERE name LIKE '%" + name + "%'");
             while (rs.next()) { 
-                Storage storage = new Storage();
-                storage.setId(rs.getInt(1));
-                storage.setName(rs.getString("name"));
+                Storage storage = new Storage(rs.getString("storage_name"), 
+                        rs.getInt("storage_quantity"), rs.getInt("storage_id"));
                 list.add(storage);
             }
             return list;
         } catch (SQLException ex) {
-            System.out.println("Houve um erro ao obter um curso: " + ex.getMessage());
+            System.out.println("Houve um erro ao obter um item do estoque: " + ex.getMessage());
         }
         return null;
     }
@@ -59,17 +56,16 @@ public class StorageDAO implements ImplementStorage{
     @Override
     public List<Storage> getAllStorage() {
         list = new ArrayList<Storage>();
-        ResultSet rs = this.db.query("SELECT id, name FROM java_storage ORDER BY id");
+        ResultSet rs = this.db.query("SELECT * FROM storage ORDER BY id");
         try {
             while(rs.next()){
-                Storage storage = new Storage();
-                storage.setId(rs.getInt(1));
-                storage.setName(rs.getString("name"));
+                Storage storage = new Storage(rs.getString("storage_name"), 
+                        rs.getInt("storage_quantity"), rs.getInt("storage_id"));
                 list.add(storage);
             }
             return list;
         } catch (SQLException ex) {
-            System.out.println("Erro ao retornar um curso pelo nome: " + ex.getMessage());
+            System.out.println("Erro ao retornar lista de itens: " + ex.getMessage());
         }
         return null;
     }

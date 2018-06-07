@@ -4,29 +4,36 @@ package Controller;
 import Model.Employee;
 import Model.DAO.EmployeeDAO;
 import Model.Interfaces.ImplementEmployee;
-import Model.Table.TabelModelEmployee;
-import View.EmployeePanelForm;
+//import Model.Table.TabelModelEmployee;
+import View.FrameEmployee;
 import java.util.List;
 import javax.swing.JOptionPane;
 
 public class EmployeeController {
-    private final EmployeePanelForm panel;
+    private final FrameEmployee panel;
     private final ImplementEmployee implementEmployee;
     private List<Employee> list;
     
-    public EmployeeController(EmployeePanelForm panel) {
+    public EmployeeController(FrameEmployee panel) {
         this.panel = panel;
         implementEmployee = new EmployeeDAO();
         list = implementEmployee.getAllEmployee();
     }
     
     public void reset(){
-        panel.getTxtId().setText("");
-        panel.getTxtName().setText("");
-        panel.getTabelEmployee().clearSelection();
+        panel.setTextName("");
+        panel.setTextCity("");
+        panel.setTextId("");
+        panel.setTextNeighboor("");
+        panel.setTextPhone("");
+        panel.setTextZipcode("");
+        panel.setTextUF("");
+        panel.setTextStreet("");
+
+        //panel.getTabelEmployee().clearSelection();
     }
     
-    public void setTabel(){
+    /*public void setTabel(){
         list = implementEmployee.getAllEmployee();
         panel.getTabelEmployee().setModel(new TabelModelEmployee(list));
     }
@@ -38,6 +45,7 @@ public class EmployeeController {
             panel.getTxtName().setText(list.get(row).getName());
         }
     }
+*/
     
     public void insert(){
         Employee employee = new Employee();

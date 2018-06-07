@@ -22,33 +22,31 @@ public class TableDAO implements ImplementTable{
             
     @Override
     public void insert(Table table) {
-        this.db.execute("INSERT INTO java_table (name) VALUES (?)", table.getName());
+        this.db.execute("INSERT INTO tables (id) VALUES (?)", table.getId());
     }
 
     @Override
     public void update(Table table) {
-        this.db.execute("UPDATE java_table SET name=? WHERE id=?", table.getName(), table.getId());
+       // this.db.execute("UPDATE tables SET id=? WHERE id=?", table.getName(), table.getId());
     }
 
     @Override
     public void delete(int id) {
-        this.db.execute("DELETE FROM java_table WHERE id=?", id);
+        this.db.execute("DELETE FROM tables WHERE id=?", id);
     }
 
     @Override
-    public List<Table> getTable(String name) {
+    public List<Table> getTable(int number) {
         list = new ArrayList<Table>();
         try {
-            ResultSet rs = this.db.query("SELECT * FROM java_table WHERE name LIKE '%" + name + "%'");
+            ResultSet rs = this.db.query("SELECT * FROM tables WHERE id = '" + number + "'");
             while (rs.next()) { 
-                Table table = new Table();
-                table.setId(rs.getInt(1));
-                table.setName(rs.getString("name"));
+                Table table = new Table(rs.getInt("id"), rs.getDouble("total"));
                 list.add(table);
             }
             return list;
         } catch (SQLException ex) {
-            System.out.println("Houve um erro ao obter um curso: " + ex.getMessage());
+            System.out.println("Houve um erro ao obter uma mesa: " + ex.getMessage());
         }
         return null;
     }
@@ -56,17 +54,15 @@ public class TableDAO implements ImplementTable{
     @Override
     public List<Table> getAllTable() {
         list = new ArrayList<Table>();
-        ResultSet rs = this.db.query("SELECT id, name FROM java_table ORDER BY id");
+        ResultSet rs = this.db.query("SELECT * FROM tables ORDER BY id");
         try {
             while(rs.next()){
-                Table table = new Table();
-                table.setId(rs.getInt(1));
-                table.setName(rs.getString("name"));
+                Table table = new Table(rs.getInt("id"), rs.getDouble("total"));
                 list.add(table);
             }
             return list;
         } catch (SQLException ex) {
-            System.out.println("Erro ao retornar um curso pelo nome: " + ex.getMessage());
+            System.out.println("Erro ao retornar todas as mesas: " + ex.getMessage());
         }
         return null;
     }

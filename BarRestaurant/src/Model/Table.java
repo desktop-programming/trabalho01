@@ -1,31 +1,24 @@
 package Model;
 
 public class Table {
-   int table;
-   int card;
-   double totalIndividual;
-   double value;
+   int id;
+   double total;
    
-   public Table(int table, int card, double totalIndividual){
-       this.table = table;
-       this.card = card;
-       this.totalIndividual= totalIndividual;    
+   public Table(int number, double total){
+       this.id = number;
+       this.total = total;    
    }
    
-   public int getTable(){
-       return table;
+   public Table(int number){
+       this.id = number;
+       this.total = 0;
    }
    
-   public int getCard(){
-       return card;
-   } 
-   
-   public double getTotalIndividual(){
-       return totalIndividual;
+   public int getId(){
+       return this.id;
    }
    
-   public double getValue(){
-       return value;
+   public double getTotal(){
+       return this.total;
    }
-
 }

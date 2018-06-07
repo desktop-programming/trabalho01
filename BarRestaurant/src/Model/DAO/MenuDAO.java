@@ -23,33 +23,32 @@ public class MenuDAO implements ImplementMenu{
             
     @Override
     public void insert(Menu menu) {
-        this.db.execute("INSERT INTO java_menu (name) VALUES (?)", menu.getName());
+        this.db.execute("INSERT INTO menu (menu_item) VALUES (?)", menu.getName());
     }
 
     @Override
     public void update(Menu menu) {
-        this.db.execute("UPDATE java_menu SET name=? WHERE id=?", menu.getName(), menu.getId());
+        this.db.execute("UPDATE menu SET menu_item=?, menu_price=? WHERE menu_id=?", menu.getName(), menu.getPrice(), menu.getID());
     }
 
     @Override
     public void delete(int id) {
-        this.db.execute("DELETE FROM java_menu WHERE id=?", id);
+        this.db.execute("DELETE FROM menu WHERE id=?", id);
     }
 
     @Override
     public List<Menu> getMenu(String name) {
         list = new ArrayList<Menu>();
         try {
-            ResultSet rs = this.db.query("SELECT * FROM java_menu WHERE name LIKE '%" + name + "%'");
+            ResultSet rs = this.db.query("SELECT * FROM menu WHERE name LIKE '%" + name + "%'");
             while (rs.next()) { 
-                Menu menu = new Menu();
-                menu.setId(rs.getInt(1));
-                menu.setName(rs.getString("name"));
+                Menu menu = new Menu(rs.getString("menu_item"), rs.getDouble("menu_price"),
+                        rs.getInt("menu_id"));
                 list.add(menu);
             }
             return list;
         } catch (SQLException ex) {
-            System.out.println("Houve um erro ao obter um curso: " + ex.getMessage());
+            System.out.println("Houve um erro ao obter um item do menu: " + ex.getMessage());
         }
         return null;
     }
@@ -57,17 +56,16 @@ public class MenuDAO implements ImplementMenu{
     @Override
     public List<Menu> getAllMenu() {
         list = new ArrayList<Menu>();
-        ResultSet rs = this.db.query("SELECT id, name FROM java_menu ORDER BY id");
+        ResultSet rs = this.db.query("SELECT * FROM menu ORDER BY id");
         try {
             while(rs.next()){
-                Menu menu = new Menu();
-                menu.setId(rs.getInt(1));
-                menu.setName(rs.getString("name"));
+                Menu menu = new Menu(rs.getString("menu_item"), rs.getDouble("menu_price"),
+                        rs.getInt("menu_id"));
                 list.add(menu);
             }
             return list;
         } catch (SQLException ex) {
-            System.out.println("Erro ao retornar um curso pelo nome: " + ex.getMessage());
+            System.out.println("Erro ao retornar os items do menu: " + ex.getMessage());
         }
         return null;
     }

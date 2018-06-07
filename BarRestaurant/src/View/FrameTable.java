@@ -19,6 +19,13 @@ public class FrameTable extends javax.swing.JFrame {
         this.setSize(600,596);
         this.setLocationRelativeTo(null);
     }
+     
+     public String getIdText(){
+         return txtTable.getText();
+     }
+     public void setIdText(String string){
+         txtTable.setText(string);
+     }
 
     public boolean verifyText(){
          
@@ -311,7 +318,7 @@ public class FrameTable extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
             if(verifyText()){
             table.add(new Table(Integer.parseInt(txtTable.getText()),
-                    Integer.parseInt(txtCode.getText()),
+                    //Integer.parseInt(txtCode.getText()),
                     Double.parseDouble(txtTotalIndividual.getText())));
             JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
         }

@@ -231,7 +231,8 @@ public class FrameMenu extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
             if(verifyText()){
-            menu.add(new Menu(txtItem.getText(), Double.parseDouble(txtPrice.getText())));
+            menu.add(new Menu(txtItem.getText(), Double.parseDouble(txtPrice.getText()),
+            Integer.parseInt(txtID.getText())));
             JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -292,4 +293,28 @@ public class FrameMenu extends javax.swing.JFrame {
     private javax.swing.JTextPane txtItem;
     private javax.swing.JTextPane txtPrice;
     // End of variables declaration//GEN-END:variables
+
+    public void setTextPrice(String string) {
+        txtPrice.setText(string);
+    }
+
+    public void setTextId(String string) {
+        txtID.setText(string);
+    }
+
+    public void setTextItem(String string) {
+        txtItem.setText(string);
+    }
+
+    public String getTextPrice() {
+        return txtPrice.getText();
+    }
+
+    public String getTextId() {
+        return txtID.getText();
+    }
+    
+    public String getTextItem(){
+        return txtItem.getText();
+    }
 }

@@ -5,10 +5,10 @@ public class Menu {
     double price;
     int id;
     
-    public Menu(String name, double price){
+    public Menu(String name, double price, int id){
         this.name = name;
         this.price = price;
-        id++;
+        this.id = id;
     }
     
     public String getName(){

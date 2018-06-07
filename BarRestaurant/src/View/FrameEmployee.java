@@ -404,4 +404,76 @@ public class FrameEmployee extends javax.swing.JFrame {
     private javax.swing.JTextPane txtName;
     private javax.swing.JTextPane txtPhone;
     // End of variables declaration//GEN-END:variables
+    
+    public void setTextName(String string) {
+        txtName.setText(string);
+    }
+
+    public void setTextId(String string) {
+        txtID.setText(string);
+    }
+
+    public void setTextPhone(String string) {
+        txtPhone.setText(string);
+    }
+    
+    public void setTextStreet(String string) {
+        txtAddress.setText(string);
+    }
+
+    public void setTextNumber(String string) {
+        txtAddress1.setText(string);
+    }
+
+    public void setTextZipcode(String string) {
+        txtAddress3.setText(string);
+    }
+    
+    public void setTextNeighboor(String string) {
+        txtAddress2.setText(string);
+    }
+
+    public void setTextCity(String string) {
+        txtAddress4.setText(string);
+    }
+
+    public void setTextUF(String string) {
+        txtAddress5.setText(string);
+    }
+
+    public String getTextName() {
+        return txtName.getText();
+    }
+
+    public String getTextId() {
+        return txtID.getText();
+    }
+
+    public String getTextPhone() {
+        return txtPhone.getText();
+    }
+    
+    public String getTextStreet() {
+        return txtAddress.getText();
+    }
+
+    public String getTextNumber() {
+        return txtAddress1.getText();
+    }
+
+    public String getTextZipcode( ) {
+         return txtAddress3.getText();
+    }
+    
+    public String getTextNeighboor( ) {
+        return txtAddress2.getText();
+    }
+
+    public String getTextCity( ) {
+        return txtAddress4.getText();
+    }
+
+    public String getTextUF( ) {
+        return txtAddress5.getText();
+    }
 }

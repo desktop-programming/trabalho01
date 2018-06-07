@@ -2,24 +2,25 @@ package Model;
 
 
 public class Storage {
-    String name;
+    String item;
     int quantity;
     int id;
     
-    public Storage(String name, int quantity){
-        this.name = name;
+    public Storage(String name, int quantity, int id){
+        this.item = name;
         this.quantity = quantity;
-        id++;
+        this.id = id;
     }
-    
+
+   
     public String getName(){
-        return name;
+        return item;
     }
     public int getQuantity(){
         return quantity;
     }
 
-    public int getID(){
+    public int getId(){
         return id;
     }
 }
