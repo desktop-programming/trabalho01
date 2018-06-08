@@ -43,7 +43,7 @@ public class MenuDAO implements ImplementMenu{
             ResultSet rs = this.db.query("SELECT * FROM menu WHERE name LIKE '%" + name + "%'");
             while (rs.next()) { 
                 Menu menu = new Menu(rs.getString("menu_item"), rs.getDouble("menu_price"),
-                        rs.getInt("menu_id"));
+                        rs.getInt("menu_id"),rs.getString("product_category"));
                 list.add(menu);
             }
             return list;
@@ -52,6 +52,7 @@ public class MenuDAO implements ImplementMenu{
         }
         return null;
     }
+    
 
     @Override
     public List<Menu> getAllMenu() {
@@ -60,12 +61,25 @@ public class MenuDAO implements ImplementMenu{
         try {
             while(rs.next()){
                 Menu menu = new Menu(rs.getString("menu_item"), rs.getDouble("menu_price"),
-                        rs.getInt("menu_id"));
+                        rs.getInt("menu_id"),rs.getString("product_category"));
                 list.add(menu);
             }
             return list;
         } catch (SQLException ex) {
             System.out.println("Erro ao retornar os items do menu: " + ex.getMessage());
+        }
+        return null;
+    }
+    
+    public Menu getMenu(int id){
+        try {
+            ResultSet rs = this.db.query("SELECT * FROM products WHERE product_id ='" + id + "'");
+            rs.next();
+                Menu product = new Menu(rs.getString("product_name"), rs.getDouble("product_price"),
+                rs.getInt("product_id"), rs.getString("product_category"));
+            return product;
+        } catch (SQLException ex) {
+            System.out.println("Houve um erro ao obter um item do menu: " + ex.getMessage());
         }
         return null;
     }

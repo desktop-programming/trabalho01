@@ -49,7 +49,7 @@ public class EmployeeController {
     
     public void insert(){
         Employee employee = new Employee();
-        employee.setName(panel.getTxtName().getText());
+        employee.setName(panel.getTextName().getText());
         implementEmployee.insert(employee);
     }
 

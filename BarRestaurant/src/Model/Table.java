@@ -2,23 +2,23 @@ package Model;
 
 public class Table {
    int id;
-   double total;
+   int order_id;
    
-   public Table(int number, double total){
+   public Table(int number, int order_id){
        this.id = number;
-       this.total = total;    
+       this.order_id = order_id;    
    }
    
    public Table(int number){
        this.id = number;
-       this.total = 0;
+       this.order_id = 0;
    }
    
    public int getId(){
        return this.id;
    }
    
-   public double getTotal(){
-       return this.total;
+   public double getOrderId(){
+       return this.order_id;
    }
 }

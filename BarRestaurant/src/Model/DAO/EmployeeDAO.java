@@ -40,7 +40,7 @@ public class EmployeeDAO implements ImplementEmployee{
     public List<Employee> getEmployee(String name) {
         list = new ArrayList<Employee>();
         try {
-            ResultSet rs = this.db.query("SELECT * FROM java_employee WHERE name LIKE '%" + name + "%'");
+            ResultSet rs = this.db.query("SELECT * FROM employee WHERE name LIKE '%" + name + "%'");
             while (rs.next()) { 
                 Employee employee = new Employee();
                 employee.setId(rs.getInt(1));
