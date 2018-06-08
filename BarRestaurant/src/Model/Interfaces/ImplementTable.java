@@ -22,5 +22,7 @@ public interface ImplementTable{
     public void delete(int id);
     
     public List<Table> getTable(int number);
+    
+    public List<Table> getAllTable(); 
  
 }

@@ -53,6 +53,22 @@ public class TableDAO implements ImplementTable{
         }
         return null;
     }
+  @Override
+    public List<Table> getAllTable() {
+        list = new ArrayList<Table>();
+        try {
+            ResultSet rs = this.db.query("SELECT * FROM tables");
+            while (rs.next()) { 
+                Table table = new Table(rs.getInt("table_id"), rs.getInt("order_id"));
+                list.add(table);
+            }
+            
+            return list;
+        } catch (SQLException ex) {
+            System.out.println("Houve um erro ao obter uma mesa: " + ex.getMessage());
+        }
+        return null;
+    }
 
 
    /* @Override
@@ -75,7 +91,7 @@ public class TableDAO implements ImplementTable{
         try {
             ResultSet rs = this.db.query("SELECT * FROM product WHERE product_id '" + id + "'");
                 Menu product = new Menu(rs.getString("product_item"), rs.getDouble("product_price"),
-                        rs.getInt("product_id"));
+                        rs.getInt("product_id"), rs.getString("product_category"));
                     
             return product;
         } catch (SQLException ex) {

@@ -18,7 +18,7 @@ public class Table {
        return this.id;
    }
    
-   public double getOrderId(){
+   public int getOrderId(){
        return this.order_id;
    }
 }

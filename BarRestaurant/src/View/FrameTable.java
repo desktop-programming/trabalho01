@@ -23,9 +23,10 @@ public class FrameTable extends javax.swing.JFrame {
         initComponents();
         this.setSize(600,596);
         this.setLocationRelativeTo(null);
+        fillTables();
+        
     }
-
-   
+    
      
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,17 +66,23 @@ public class FrameTable extends javax.swing.JFrame {
 
         tableTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Nª Pedido", "Mesa", "Total"
+                "Mesa", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -88,11 +95,6 @@ public class FrameTable extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tableTable);
-        if (tableTable.getColumnModel().getColumnCount() > 0) {
-            tableTable.getColumnModel().getColumn(0).setHeaderValue("Nª Pedido");
-            tableTable.getColumnModel().getColumn(1).setHeaderValue("Mesa");
-            tableTable.getColumnModel().getColumn(2).setHeaderValue("Total");
-        }
 
         jButton3.setText("Finalizar Pedido");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -107,25 +109,29 @@ public class FrameTable extends javax.swing.JFrame {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
-                "Qtde", "Descrição", "Unitário", "Total"
+                "Qtde", "Descrição", "Unitário (R$)", "Total (R$)"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.Object.class, java.lang.Double.class, java.lang.Double.class
             };
-            boolean[] canEdit = new boolean [] {
-                true, true, false, false
-            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
         });
         jTableItem.getTableHeader().setReorderingAllowed(false);
@@ -138,7 +144,7 @@ public class FrameTable extends javax.swing.JFrame {
         if (jTableItem.getColumnModel().getColumnCount() > 0) {
             jTableItem.getColumnModel().getColumn(0).setMaxWidth(50);
             jTableItem.getColumnModel().getColumn(2).setMaxWidth(80);
-            jTableItem.getColumnModel().getColumn(3).setMaxWidth(80);
+            jTableItem.getColumnModel().getColumn(3).setResizable(false);
         }
 
         jLabel1.setText("Mesa");
@@ -149,7 +155,7 @@ public class FrameTable extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Buscar");
+        jButton4.setText("Ver pedidos");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -170,40 +176,40 @@ public class FrameTable extends javax.swing.JFrame {
                 .addGap(0, 27, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTable, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton2)
                         .addComponent(jButton3)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -212,12 +218,17 @@ public class FrameTable extends javax.swing.JFrame {
     
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-   /*         if(verifyText()){
+        try {
+            callOrder();
+            /*         if(verifyText()){
             table.add(new Table(Integer.parseInt(txtTable.getText()),
-                    //Integer.parseInt(txtCode.getText()),
-                    Double.parseDouble(txtTotalIndividual.getText())));
+            //Integer.parseInt(txtCode.getText()),
+            Double.parseDouble(txtTotalIndividual.getText())));
             JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
-       */ 
+            */ 
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(FrameTable.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -241,20 +252,24 @@ public class FrameTable extends javax.swing.JFrame {
     }//GEN-LAST:event_txtTableActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        try {
-            FrameTable ft = new FrameTable();
-            TableController controller = new TableController(ft);
-            List<Order> orders;
-            orders = controller.getOrders(Integer.parseInt(txtTable.getText()));
-            for(int i =0 ; i<orders.size();i++){
-                jTableItem.setValueAt(orders.get(i).getProductQuantity(), i, 0);
-                jTableItem.setValueAt(controller.getMenu(orders.get(i).getItemId()).getName(), i, 1);
-                jTableItem.setValueAt(controller.getMenu(orders.get(i).getItemId()).getPrice(), i, 2);
-                jTableItem.setValueAt(controller.getMenu(orders.get(i).getItemId()).getPrice()*orders.get(i).getProductQuantity(), i, 3);
-                
-            }
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(FrameTable.class.getName()).log(Level.SEVERE, null, ex);
+        cleanTable();
+        TableController controller = new TableController(this);
+        List<Order> orders;
+        int productQuantity;
+        double productPrice, productTotal;
+        String productName;
+        orders = controller.getOrders(Integer.parseInt(txtTable.getText()));
+        for(int i =0 ; i<orders.size();i++){
+            productQuantity = orders.get(i).getProductQuantity();
+            productName = controller.getMenu(orders.get(i).getItemId()).getName();
+            productPrice = controller.getMenu(orders.get(i).getItemId()).getPrice();
+            productTotal = productPrice*productQuantity;
+            
+            jTableItem.setValueAt(productQuantity, i, 0);
+            jTableItem.setValueAt(productName, i, 1);
+            jTableItem.setValueAt(productPrice, i, 2);
+            jTableItem.setValueAt(productTotal, i, 3);
+            
         }
         
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -322,4 +337,43 @@ public class FrameTable extends javax.swing.JFrame {
     public Object getTxtTable() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    public void callOrder() throws ClassNotFoundException{
+    
+        FrameOrder frame = null;
+         frame = new FrameOrder();
+        frame.setVisible(true);
+   
+    }
+    
+    public void cleanTable(){
+        for(int i=0; i<4;i++){
+                jTableItem.setValueAt("", i, 0);
+                jTableItem.setValueAt("", i, 1);
+                jTableItem.setValueAt("", i, 2);
+                jTableItem.setValueAt("", i, 3);
+        }
+    }
+    
+    private void fillTables(){
+         TableController controller = new TableController(this);
+         List<Table> tables;
+         
+         List<Order> orders;
+         
+         int table_id, order_id;
+         boolean isFinished;
+         tables = controller.getAllTable();
+         
+         for(int i =0 ; i<tables.size();i++){
+             
+             table_id = tables.get(i).getId();
+             order_id = tables.get(i).getOrderId();
+             
+             tableTable.setValueAt(table_id , i, 0);
+             if(order_id>0)
+                 tableTable.setValueAt("Ocupada" , i, 1);
+             else
+                 tableTable.setValueAt("Livre", i, 1);
+         }
+     }
 }

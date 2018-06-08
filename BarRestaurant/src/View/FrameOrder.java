@@ -59,8 +59,6 @@ public class FrameOrder extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jList1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jLabel1.setText("Mesa");
 
         jLabel7.setText("Pedido");

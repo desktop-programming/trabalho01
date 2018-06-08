@@ -34,5 +34,9 @@ public Order(int order_id, int table_id, int item_id){
         return product_quantity;
     }  
     
+    public boolean orderIsFinished(){
+        return order_isFinished==1;
+    }
+    
 
 }

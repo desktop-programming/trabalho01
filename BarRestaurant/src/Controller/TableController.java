@@ -80,6 +80,10 @@ public class TableController {
         MenuDAO implementMenu = new MenuDAO();
         return implementMenu.getMenu(id); 
     }
+   
+   public List<Table> getAllTable() {
+       return implementTable.getAllTable();
+   }
     
    /* public void getData(){
         if (panel.getIdText().trim().isEmpty()){
