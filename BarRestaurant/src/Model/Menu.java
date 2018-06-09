@@ -25,4 +25,8 @@ public class Menu {
     public int getID(){
         return id;
     }  
+    
+    public String getCategory(){
+        return category;
+    }
 }

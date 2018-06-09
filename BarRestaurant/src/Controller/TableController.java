@@ -60,7 +60,8 @@ public class TableController {
         implementTable.update(table);
     }*/
     
-    public void delete(){
+    public void delete(int id){
+        implementTable.delete(id);
       /*  if (panel.getIdText().trim().isEmpty()){
             JOptionPane.showMessageDialog(panel, "Sem dados para excluir.",null, JOptionPane.ERROR_MESSAGE);
             return;

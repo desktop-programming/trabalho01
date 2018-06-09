@@ -17,6 +17,7 @@ public class FrameMenu extends javax.swing.JFrame {
         initComponents();
         this.setSize(600,596);
         this.setLocationRelativeTo(null);
+        this.setTitle("Cardápio");
     }
 
         public boolean verifyText(){
@@ -81,6 +82,7 @@ public class FrameMenu extends javax.swing.JFrame {
         txtPrice = new javax.swing.JTextPane();
         jButton1 = new javax.swing.JButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setSize(new java.awt.Dimension(500, 460));
 
         jButton2.setText("Modificar");

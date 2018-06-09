@@ -20,6 +20,10 @@ public Order(int order_id, int table_id, int item_id){
         this.item_id = item_id;
         this.order_isFinished = 0;
 }
+
+    public Order() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     public int getOrderId(){
         return order_id;

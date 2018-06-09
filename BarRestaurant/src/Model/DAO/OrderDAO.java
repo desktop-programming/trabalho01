@@ -18,7 +18,9 @@ public class OrderDAO implements ImplementOrder{
             
     @Override
     public void insert(Order order) {
-        this.db.execute("INSERT INTO orders (order_id) VALUES (?)", order.getOrderId());
+        this.db.execute("INSERT INTO orders (order_id, order_isFinished, table_id, product_quantity, product_id) VALUES (?,?,?,?,?)", 
+                    order.getOrderId(), order.orderIsFinished(), order.getTableId(), order.getProductQuantity(), order.getItemId());
+        this.db.execute("UPDATE tables SET order_id = ? WHERE table_id=?",order.getOrderId(), order.getTableId());
     }
 
     @Override
@@ -28,7 +30,7 @@ public class OrderDAO implements ImplementOrder{
 
     @Override
     public void delete(int id) {
-        this.db.execute("DELETE FROM orders WHERE order_id=?", id);
+      
     }
     
 
@@ -70,7 +72,7 @@ public class OrderDAO implements ImplementOrder{
         ResultSet rs = this.db.query("SELECT * FROM orders");
         try {
             while(rs.next()){
-                Order order = new Order(rs.getInt("order_id"), rs.getInt("table_id"), rs.getInt("item_id"), rs.getInt("order_isFinished"), rs.getInt("product_quantity"));
+                Order order = new Order(rs.getInt("order_id"), rs.getInt("table_id"), rs.getInt("product_id"), rs.getInt("order_isFinished"), rs.getInt("product_quantity"));
                 list.add(order);
             }
             return list;

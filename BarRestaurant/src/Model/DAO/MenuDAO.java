@@ -53,6 +53,39 @@ public class MenuDAO implements ImplementMenu{
         return null;
     }
     
+    @Override
+    public List<Menu> getProduct(String name){
+        list = new ArrayList<Menu>();
+        ResultSet rs = this.db.query("SELECT * FROM products WHERE product_name LIKE '"+name+"'");
+        try {
+            while(rs.next()){
+                Menu menu = new Menu(rs.getString("product_name"), rs.getDouble("product_price"),
+                        rs.getInt("product_id"),rs.getString("product_category"));
+                list.add(menu);
+            }
+            return list;
+        } catch (SQLException ex) {
+            System.out.println("Erro ao retornar os items do menu: " + ex.getMessage());
+        }
+        return null;
+    }
+    
+    @Override
+    public List<Menu> getProductCategory(String category){
+        list = new ArrayList<Menu>();
+        ResultSet rs = this.db.query("SELECT * FROM products WHERE product_category LIKE '"+category+"'");
+        try {
+            while(rs.next()){
+                Menu menu = new Menu(rs.getString("product_name"), rs.getDouble("product_price"),
+                        rs.getInt("product_id"),rs.getString("product_category"));
+                list.add(menu);
+            }
+            return list;
+        } catch (SQLException ex) {
+            System.out.println("Erro ao retornar os items do menu: " + ex.getMessage());
+        }
+        return null;
+    }
 
     @Override
     public List<Menu> getAllMenu() {

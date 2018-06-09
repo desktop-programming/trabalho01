@@ -33,7 +33,8 @@ public class TableDAO implements ImplementTable{
 
     @Override
     public void delete(int id) {
-        this.db.execute("DELETE FROM tables WHERE table_id=?", id);
+        this.db.execute("UPDATE tables SET order_id = 0 WHERE table_id = ?",id);
+        this.db.execute("UPDATE orders SET order_isFinished = 1 WHERE table_id=?", id);
     }
     
 

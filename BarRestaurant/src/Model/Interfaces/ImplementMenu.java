@@ -23,5 +23,9 @@ public interface ImplementMenu{
     
     public List<Menu> getMenu(String name);
     
+    public List<Menu> getProductCategory(String category);
+    
+    public List<Menu> getProduct(String name);
+    
     public List<Menu> getAllMenu();
 }

@@ -5,9 +5,12 @@
  */
 package Controller;
 
+import Model.DAO.MenuDAO;
 import Model.Order;
 import Model.DAO.OrderDAO;
+import Model.Interfaces.ImplementMenu;
 import Model.Interfaces.ImplementOrder;
+import Model.Menu;
 import View.FrameOrder;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +19,14 @@ import javax.swing.JOptionPane;
 public class OrderController {
     private final FrameOrder panel;
     private final ImplementOrder implementOrder;
+    private final ImplementMenu implementMenu;
     private List<Order> list;
     
     public OrderController(FrameOrder panel) {
         this.panel = panel;
         implementOrder = new OrderDAO();
         list = implementOrder.getAllOrder();
+        implementMenu = new MenuDAO();
     }
     
     public void reset(){
@@ -44,13 +49,7 @@ public class OrderController {
         }
     }*/
     
-    public void insert(){
-        Order order = new Order(Integer.parseInt(panel.getTextOrder()),
-        Integer.parseInt(panel.getTextTable()),
-        panel.getTextCategory(), panel.getTextDescription(),
-        Integer.parseInt(panel.getTextQuantity()),
-        Double.parseDouble(panel.getTextValue()));
-        
+    public void insert( Order order){     
         implementOrder.insert(order);
     }
 
@@ -62,6 +61,14 @@ public class OrderController {
         Double.parseDouble(panel.getTextValue()));
         
         implementOrder.update(order);
+    }
+    
+    public List<Menu> getProductCategory(String category){
+        return implementMenu.getProductCategory(category);
+    }
+    
+    public List<Menu> getProduct(String name){
+        return implementMenu.getProduct(name);
     }
     
     public void delete(){
