@@ -20,9 +20,9 @@ public class MenuController {
     }
     
     public void reset(){
-        panel.setTextId("");
         panel.setTextPrice("");
         panel.setTextItem("");
+        panel.setTextCategory("");
         //panel.getTabelMenu().clearSelection();
     }
     
@@ -42,7 +42,8 @@ public class MenuController {
     public void insert(){
         Menu menu = new Menu(panel.getTextItem(),
         Double.parseDouble(panel.getTextPrice()),
-        Integer.parseInt(panel.getTextId()));
+        Integer.parseInt(panel.getTextId()),
+        panel.getTextCategory());
         
         implementMenu.insert(menu);
     }
@@ -50,7 +51,8 @@ public class MenuController {
     public void update(){
         Menu menu = new Menu(panel.getTextItem(),
         Double.parseDouble(panel.getTextPrice()),
-        Integer.parseInt(panel.getTextId()));
+        Integer.parseInt(panel.getTextId()),
+        panel.getTextCategory());
         implementMenu.update(menu);
     }
     
@@ -71,6 +73,10 @@ public class MenuController {
         String name = panel.getTextItem();
         implementMenu.getMenu(name);
        // this.filterTable(name);
+    }
+    
+    public List<Menu> getAllMenu(){
+        return implementMenu.getAllMenu();
     }
 
     /*public void filterTable(String name){

@@ -23,33 +23,24 @@ public class MenuDAO implements ImplementMenu{
             
     @Override
     public void insert(Menu menu) {
-        this.db.execute("INSERT INTO menu (menu_item) VALUES (?)", menu.getName());
+        this.db.execute("INSERT INTO products (product_name, product_price, product_category) VALUES (?,?,?)", 
+                menu.getName(), menu.getPrice(),menu.getCategory());
     }
 
     @Override
     public void update(Menu menu) {
-        this.db.execute("UPDATE menu SET menu_item=?, menu_price=? WHERE menu_id=?", menu.getName(), menu.getPrice(), menu.getID());
+        this.db.execute("UPDATE products SET product_name=?, product_price=?, product_category=? WHERE product_id=?", 
+                menu.getName(), menu.getPrice(), menu.getCategory() ,menu.getID());
     }
 
     @Override
     public void delete(int id) {
-        this.db.execute("DELETE FROM menu WHERE id=?", id);
+        this.db.execute("DELETE FROM products WHERE product_id=?", id);
     }
 
     @Override
     public List<Menu> getMenu(String name) {
-        list = new ArrayList<Menu>();
-        try {
-            ResultSet rs = this.db.query("SELECT * FROM menu WHERE name LIKE '%" + name + "%'");
-            while (rs.next()) { 
-                Menu menu = new Menu(rs.getString("menu_item"), rs.getDouble("menu_price"),
-                        rs.getInt("menu_id"),rs.getString("product_category"));
-                list.add(menu);
-            }
-            return list;
-        } catch (SQLException ex) {
-            System.out.println("Houve um erro ao obter um item do menu: " + ex.getMessage());
-        }
+     
         return null;
     }
     
@@ -90,11 +81,11 @@ public class MenuDAO implements ImplementMenu{
     @Override
     public List<Menu> getAllMenu() {
         list = new ArrayList<Menu>();
-        ResultSet rs = this.db.query("SELECT * FROM menu ORDER BY id");
+        ResultSet rs = this.db.query("SELECT * FROM products ORDER BY product_id");
         try {
             while(rs.next()){
-                Menu menu = new Menu(rs.getString("menu_item"), rs.getDouble("menu_price"),
-                        rs.getInt("menu_id"),rs.getString("product_category"));
+                Menu menu = new Menu(rs.getString("product_name"), rs.getDouble("product_price"),
+                        rs.getInt("product_id"),rs.getString("product_category"));
                 list.add(menu);
             }
             return list;
