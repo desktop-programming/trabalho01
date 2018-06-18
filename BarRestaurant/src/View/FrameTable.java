@@ -344,20 +344,15 @@ public class FrameTable extends javax.swing.JFrame {
     }
     
     public void cleanTable(){
-        for(int i=0; i<4;i++){
-                jTableItem.setValueAt(null, i, 0);
-                jTableItem.setValueAt(null, i, 1);
-                jTableItem.setValueAt(null, i, 2);
-                jTableItem.setValueAt(null, i, 3);
-        }
+        for(int i=0; i<jTableItem.getRowCount();i++)
+            for(int j=0; j<jTableItem.getColumnCount();j++)
+                jTableItem.setValueAt(null, i, j);
     }
     
     public void cleanTableTable(){
-        for(int i=0; i<2;i++){
-                tableTable.setValueAt(null, i, 0);
-                tableTable.setValueAt(null, i, 1);
-                
-        }
+        for(int i=0; i<tableTable.getRowCount();i++)
+            for(int j=0; j<tableTable.getColumnCount();j++)
+                tableTable.setValueAt(null, i, j);
     }
     
     
@@ -365,19 +360,20 @@ public class FrameTable extends javax.swing.JFrame {
          TableController controller = new TableController(this);
          List<Table> tables;
          
-         List<Order> orders;
+         List<Order> orders ;
          
          int table_id, order_id;
          boolean isFinished;
          tables = controller.getAllTable();
          
          for(int i =0 ; i<tables.size();i++){
-             
              table_id = tables.get(i).getId();
+             orders = controller.getOrders(table_id);
              order_id = tables.get(i).getOrderId();
+             isFinished = orders.get(0).orderIsFinished();
              
              tableTable.setValueAt(table_id , i, 0);
-             if(order_id>0)
+             if(order_id>0 && !isFinished)
                  tableTable.setValueAt("Ocupada" , i, 1);
              else
                  tableTable.setValueAt("Livre", i, 1);

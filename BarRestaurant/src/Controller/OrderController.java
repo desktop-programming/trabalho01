@@ -54,13 +54,7 @@ public class OrderController {
     }
 
     public void update(){
-        Order order = new Order(Integer.parseInt(panel.getTextOrder()),
-        Integer.parseInt(panel.getTextTable()),
-        panel.getTextCategory(), panel.getTextDescription(),
-        Integer.parseInt(panel.getTextQuantity()),
-        Double.parseDouble(panel.getTextValue()));
-        
-        implementOrder.update(order);
+  
     }
     
     public List<Menu> getProductCategory(String category){

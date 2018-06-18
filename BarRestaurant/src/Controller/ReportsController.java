@@ -1,28 +1,27 @@
 
 package Controller;
 
-import Model.Storage;
-import Model.DAO.StorageDAO;
-import Model.Interfaces.ImplementStorage;
-import View.FrameStorage;
+import Model.Report;
+import Model.DAO.ReportDAO;
+import View.FrameReports;
 import java.util.List;
 import javax.swing.JOptionPane;
+import Model.Interfaces.ImplementReport;
+import Model.Menu;
+import Model.Order;
 
-public class StorageController {
-    private final FrameStorage panel;
-    private final ImplementStorage implementStorage;
-    private List<Storage> list;
+public class ReportsController {
+    private final FrameReports panel;
+    private final ImplementReport implementReport;
+    private List<Report> list;
     
-    public StorageController(FrameStorage panel) {
+    public ReportsController(FrameReports panel) {
         this.panel = panel;
-        implementStorage = new StorageDAO();
-        list = implementStorage.getAllStorage();
+        implementReport = new ReportDAO();
+        list = implementReport.getAllStorage();
     }
     
     public void reset(){
-        panel.setTextId("");
-        panel.setTextItem("");
-        panel.setTextQuantity("");
     }
     
     /*public void setTabel(){
@@ -39,12 +38,12 @@ public class StorageController {
     }*/
     
     public void insert(){
-        Storage storage = new Storage(panel.getTextItem(),Integer.parseInt(panel.getTextQuantity()),Integer.parseInt(panel.getTextId()));
+        Report storage = new Report(panel.getTextItem(),Integer.parseInt(panel.getTextQuantity()),Integer.parseInt(panel.getTextId()));
         implementStorage.insert(storage);
     }
 
     public void update(){
-        Storage storage = new Storage(panel.getTextItem(),Integer.parseInt(panel.getTextQuantity()),Integer.parseInt(panel.getTextId()));
+        Report storage = new Report(panel.getTextItem(),Integer.parseInt(panel.getTextQuantity()),Integer.parseInt(panel.getTextId()));
         implementStorage.update(storage);
     }
     
@@ -65,6 +64,13 @@ public class StorageController {
         String name = panel.getTextItem();
         implementStorage.getStorage(name);
        // this.filterTable(name);
+    }
+    public List<Order> getAllOrders(){
+        return implementReport.getAllOrders();
+    }
+    
+    public double getProductPrice(int id){
+        return implementReport.getMenu(id).getPrice();
     }
 
    /* public void filterTable(String name){

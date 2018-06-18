@@ -10,18 +10,20 @@ package Model.Interfaces;
  * @author geovannemoro
  */
 
-import Model.Storage;
+import Model.Menu;
+import Model.Order;
+import Model.Report;
 import java.util.List;
 
-public interface ImplementStorage{
+public interface ImplementReport{
     
-    public void insert(Storage storage);
+    public void insert(Report storage);
     
-    public void update(Storage storage);
+    public void update(Report storage);
     
     public void delete(int id);
     
-    public List<Storage> getStorage(String name);
+    public List<Order> getAllOrders();
     
-    public List<Storage> getAllStorage();
+    public Menu getMenu(int id);
 }

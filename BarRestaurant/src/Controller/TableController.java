@@ -77,6 +77,7 @@ public class TableController {
         orders = implementOrder.getTableOrders(table_id);
         return orders;
     }
+           
    public Menu getMenu(int id){
         MenuDAO implementMenu = new MenuDAO();
         return implementMenu.getMenu(id); 

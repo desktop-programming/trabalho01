@@ -423,8 +423,8 @@ public class FrameMenu extends javax.swing.JFrame {
     public void fillComboBox(){
         comboBoxType.removeAllItems();
         comboBoxType.addItem("Bebida");
-        comboBoxType.addItem("Doce");
         comboBoxType.addItem("Comida");
+        comboBoxType.addItem("Doce");
         comboBoxType.addItem("Outros");
     }
     

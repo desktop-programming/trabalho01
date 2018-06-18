@@ -31,8 +31,8 @@ public class FrameOrder extends javax.swing.JFrame {
     public void createComboboxCategory (){
         comboBoxType.removeAllItems();
         comboBoxType.addItem("Bebida");
-        comboBoxType.addItem("Doce");
         comboBoxType.addItem("Comida");
+        comboBoxType.addItem("Doce");
         comboBoxType.addItem("Outros");
     }
     
@@ -428,7 +428,6 @@ public class FrameOrder extends javax.swing.JFrame {
             
             valor += Double.parseDouble(jTableItem.getValueAt(count, 0).toString());
         }
-        model.setValueAt(s, 1, 1);
         txtValue.setText(Double.toString(valor));
     }
 }

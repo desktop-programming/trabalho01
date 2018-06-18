@@ -4,7 +4,6 @@ import Model.Interfaces.ImplementOrder;
 import Configurations.ConfigurationsMySQL;
 import DataBase.DataBase;
 import Model.Order;
-import Model.Table;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -50,6 +49,7 @@ public class OrderDAO implements ImplementOrder{
         return null;
     }
     
+    @Override
     public List<Order> getTableOrders(int number) {
         list = new ArrayList<Order>();
         ResultSet rs = this.db.query("SELECT * FROM orders WHERE table_id = '"+number+"'");
@@ -61,7 +61,7 @@ public class OrderDAO implements ImplementOrder{
             return list;
 
         } catch (SQLException ex) {
-            System.out.println("Erro ao retornar todas os pedidos: " + ex.getMessage());
+            System.out.println("Erro ao retornar todos os pedidos: " + ex.getMessage());
         }
         return null;
     }
@@ -77,7 +77,7 @@ public class OrderDAO implements ImplementOrder{
             }
             return list;
         } catch (SQLException ex) {
-            System.out.println("Erro ao retornar todas as mesas: " + ex.getMessage());
+            System.out.println("Erro ao retornar todos os pedidos: " + ex.getMessage());
         }
         return null;
     }
