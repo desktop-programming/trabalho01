@@ -25,5 +25,7 @@ public interface ImplementReport{
     
     public List<Order> getAllOrders();
     
+    public List<Order> getOrderItems(int order_id);
+    
     public Menu getMenu(int id);
 }

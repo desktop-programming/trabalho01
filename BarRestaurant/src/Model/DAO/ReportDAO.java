@@ -55,12 +55,27 @@ public class ReportDAO implements ImplementReport{
     }
     
     @Override
+    public List<Order> getOrderItems(int order_id) {
+        ArrayList<Order> orders = new ArrayList<Order>();
+        ResultSet rs = this.db.query("SELECT * FROM orders WHERE order_id ='"+order_id+"'");
+        try {
+            while(rs.next()){
+                Order order = new Order(rs.getInt("order_id"), rs.getInt("table_id"), rs.getInt("product_id"), rs.getInt("order_isFinished"), rs.getInt("product_quantity"));
+                orders.add(order);
+            }
+            return orders;
+        } catch (SQLException ex) {
+            System.out.println("Erro ao retornar todos os pedidos: " + ex.getMessage());
+        }
+        return null;
+    }
+    
+    @Override
     public Menu getMenu(int id){
         try {
-            ResultSet rs = this.db.query("SELECT * FROM product WHERE product_id '" + id + "'");
-                Menu product = new Menu(rs.getString("product_item"), rs.getDouble("product_price"),
-                        rs.getInt("product_id"), rs.getString("product_category"));
-                    
+            ResultSet rs = this.db.query("SELECT * FROM products WHERE product_id ='" + id + "'");
+            Menu product = new Menu(rs.getString("product_name"), rs.getDouble("product_price"),
+                rs.getInt("product_id"), rs.getString("product_category"));
             return product;
         } catch (SQLException ex) {
             System.out.println("Houve um erro ao obter um item do menu: " + ex.getMessage());

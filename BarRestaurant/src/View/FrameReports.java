@@ -22,6 +22,7 @@ public class FrameReports extends javax.swing.JFrame {
     
     public FrameReports() throws ClassNotFoundException {
         initComponents();
+        fillOrders();
         this.setSize(600,596);
         this.setLocationRelativeTo(null);
         this.setTitle("Histórico");
@@ -206,6 +207,10 @@ public class FrameReports extends javax.swing.JFrame {
 
     private void tableOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableOrdersMouseClicked
 
+        int column = 0;
+        int row = tableOrders.getSelectedRow();
+        String value = tableOrders.getModel().getValueAt(row, column).toString();
+        txtOrder.setText(value);
     }//GEN-LAST:event_tableOrdersMouseClicked
 
     private void txtOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtOrderActionPerformed
@@ -213,32 +218,8 @@ public class FrameReports extends javax.swing.JFrame {
     }//GEN-LAST:event_txtOrderActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        cleanTable();
-        cleanTableTable();
-        fillTables();
-        TableController controller = new TableController(this);
-        List<Order> orders;
-        int productQuantity;
-        double productPrice, productTotal;
-        String productName;
-        orders = controller.getOrders(Integer.parseInt(txtOrder.getText()));
-        int aux=0;
-        for(int i =0 ; i<orders.size();i++){
-
-            productQuantity = orders.get(i).getProductQuantity();
-            productName = controller.getMenu(orders.get(i).getItemId()).getName();
-            productPrice = controller.getMenu(orders.get(i).getItemId()).getPrice();
-            productTotal = productPrice*productQuantity;
-            if(!orders.get(i).orderIsFinished()){
-                tableOrderItems.setValueAt(productQuantity, i-aux, 0);
-                tableOrderItems.setValueAt(productName, i-aux, 1);
-                tableOrderItems.setValueAt(productPrice, i-aux, 2);
-                tableOrderItems.setValueAt(productTotal, i-aux, 3);
-            }
-            else aux++;
-
-        }
-
+        cleanTableOrderItems();
+        fillOrderItems();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void tableOrderItemsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableOrderItemsMouseClicked
@@ -321,28 +302,54 @@ public class FrameReports extends javax.swing.JFrame {
          List<Order> orders;
         orders = controller.getAllOrders();
                  
-         int table_id, order_id, product_id, product_quantity, reference_orderID=1;
-         double order_total, product_price;
-         boolean isFinished;
+         int table_id = 0, order_id, product_id, product_quantity, 
+             reference_orderID, i, row, col; 
+         i = row = col = 0;
+         double order_total = 0, product_price;
+         boolean isFinished = true;
          
-        for(int i =0 ; i<orders.size();i++){
-            order_id = orders.get(i).getOrderId();
-            if(order_id==reference_orderID){
+        while(i<orders.size()){
+            reference_orderID = orders.get(i).getOrderId();
+            for(;orders.get(i).getOrderId() == reference_orderID; i++){
+                order_id = orders.get(i).getOrderId();
                 table_id = orders.get(i).getTableId();
                 product_id = orders.get(i).getItemId();
                 product_quantity = orders.get(i).getProductQuantity();
                 product_price = controller.getProductPrice(product_id);
                 isFinished = orders.get(i).orderIsFinished();
-                order_total = product_quantity * product_price; 
-                reference_orderID = order_id;
+                order_total += product_quantity * product_price; 
 
-                tableTable.setValueAt(table_id , i, 0);
-                if(order_id>0)
-                    tableTable.setValueAt("Ocupada" , i, 1);
-                else
-                    tableTable.setValueAt("Livre", i, 1);
-            }
+               }            
+                // Table fill only if order is finished
+                if(isFinished){
+                    tableOrders.setValueAt(reference_orderID, row, col);
+                    tableOrders.setValueAt(table_id, row, col);
+                    tableOrders.setValueAt(order_total, row, col);
+                }
+                
+            }     
+    }
+    
+    private void fillOrderItems(){
+        ReportsController controller = new ReportsController(this);
+        List<Order> orders;
+        int productQuantity;
+        double productPrice, productTotal;
+        String productName;
+        orders = controller.getOrderItems(Integer.parseInt(txtOrder.getText()));
+        
+        for(int i =0 ; i<orders.size();i++){
+            
+            productQuantity = orders.get(i).getProductQuantity();
+            productName = controller.getProduct(orders.get(i).getItemId()).getName();
+            productPrice = controller.getProduct(orders.get(i).getItemId()).getPrice();
+            productTotal = productPrice*productQuantity;
+          
+            tableOrderItems.setValueAt(productQuantity, i, 0);
+            tableOrderItems.setValueAt(productName, i, 1);
+            tableOrderItems.setValueAt(productPrice, i, 2);
+            tableOrderItems.setValueAt(productTotal, i, 3);
+            
         }
-     }
-
+    }
 }

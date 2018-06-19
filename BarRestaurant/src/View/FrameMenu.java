@@ -13,7 +13,7 @@ public class FrameMenu extends javax.swing.JFrame {
     
     MenuController controller = new MenuController(this);
     ArrayList<Menu> menu = new ArrayList<Menu>();
-    String name_pattern = "^[A-Za-z_0-9 ]{3,50}+$";
+    String name_pattern = "^[A-Za-z0-9 ]{3,50}+$";
     String money_pattern = "^(?!0\\d)([0-9]{1,}(.[0-9]{2}))$";
     
     public FrameMenu() throws ClassNotFoundException {

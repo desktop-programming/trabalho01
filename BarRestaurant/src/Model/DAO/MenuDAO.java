@@ -23,8 +23,8 @@ public class MenuDAO implements ImplementMenu{
             
     @Override
     public void insert(Menu menu) {
-        this.db.execute("INSERT INTO products (product_name, product_price, product_category) VALUES (?,?,?)", 
-                menu.getName(), menu.getPrice(),menu.getCategory());
+        this.db.execute("INSERT INTO products (product_id, product_name, product_price, product_category) VALUES (?,?,?,?)", 
+                menu.getID() ,menu.getName(), menu.getPrice(),menu.getCategory());
     }
 
     @Override

@@ -223,6 +223,10 @@ public class FrameTable extends javax.swing.JFrame {
 
     private void tableTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableTableMouseClicked
 
+        int column = 0;
+        int row = tableTable.getSelectedRow();
+        String value = tableTable.getModel().getValueAt(row, column).toString();
+        txtTable.setText(value);
     }//GEN-LAST:event_tableTableMouseClicked
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -246,28 +250,7 @@ public class FrameTable extends javax.swing.JFrame {
         cleanTable();
         cleanTableTable();
         fillTables();
-        TableController controller = new TableController(this);
-        List<Order> orders;
-        int productQuantity;
-        double productPrice, productTotal;
-        String productName;
-        orders = controller.getOrders(Integer.parseInt(txtTable.getText()));
-        int aux=0;
-        for(int i =0 ; i<orders.size();i++){
-            
-            productQuantity = orders.get(i).getProductQuantity();
-            productName = controller.getMenu(orders.get(i).getItemId()).getName();
-            productPrice = controller.getMenu(orders.get(i).getItemId()).getPrice();
-            productTotal = productPrice*productQuantity;
-           if(!orders.get(i).orderIsFinished()){ 
-                jTableItem.setValueAt(productQuantity, i-aux, 0);
-                jTableItem.setValueAt(productName, i-aux, 1);
-                jTableItem.setValueAt(productPrice, i-aux, 2);
-                jTableItem.setValueAt(productTotal, i-aux, 3);
-           }
-           else aux++;
-            
-        }
+        fillOrderItems();
         
         
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -338,7 +321,7 @@ public class FrameTable extends javax.swing.JFrame {
     public void callOrder() throws ClassNotFoundException{
     
         FrameOrder frame = null;
-         frame = new FrameOrder();
+        frame = new FrameOrder();
         frame.setVisible(true);
    
     }
@@ -370,13 +353,36 @@ public class FrameTable extends javax.swing.JFrame {
              table_id = tables.get(i).getId();
              orders = controller.getOrders(table_id);
              order_id = tables.get(i).getOrderId();
-             isFinished = orders.get(0).orderIsFinished();
-             
-             tableTable.setValueAt(table_id , i, 0);
-             if(order_id>0 && !isFinished)
-                 tableTable.setValueAt("Ocupada" , i, 1);
-             else
-                 tableTable.setValueAt("Livre", i, 1);
+       
+            tableTable.setValueAt(table_id , i, 0);
+            if(order_id>0 && !orders.isEmpty() && !orders.get(i).orderIsFinished())
+                tableTable.setValueAt("Ocupada" , i, 1);       
+
+            else
+                tableTable.setValueAt("Livre", i, 1);
          }
      }
+    
+    private void fillOrderItems(){
+        TableController controller = new TableController(this);
+        List<Order> orders;
+        int productQuantity;
+        double productPrice, productTotal;
+        String productName;
+        orders = controller.getOrders(Integer.parseInt(txtTable.getText()));
+        int aux=0;
+        for(int i =0 ; i<orders.size();i++){
+            productQuantity = orders.get(i).getProductQuantity();
+            productName = controller.getMenu(orders.get(i).getItemId()).getName();
+            productPrice = controller.getMenu(orders.get(i).getItemId()).getPrice();
+            productTotal = productPrice*productQuantity;
+           if(!orders.get(i).orderIsFinished()){ 
+                jTableItem.setValueAt(productQuantity, i-aux, 0);
+                jTableItem.setValueAt(productName, i-aux, 1);
+                jTableItem.setValueAt(productPrice, i-aux, 2);
+                jTableItem.setValueAt(productTotal, i-aux, 3);
+           }
+           else aux++;
+        }
+    }
 }
