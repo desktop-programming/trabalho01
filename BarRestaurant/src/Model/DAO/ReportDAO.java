@@ -19,7 +19,7 @@ import Model.Order;
 public class ReportDAO implements ImplementReport{
     
     private List<Report> list;
-    
+ 
     private final DataBase db = new DataBase(new ConfigurationsMySQL());
             
     @Override
@@ -73,10 +73,13 @@ public class ReportDAO implements ImplementReport{
     @Override
     public Menu getMenu(int id){
         try {
-            ResultSet rs = this.db.query("SELECT * FROM products WHERE product_id ='" + id + "'");
-            Menu product = new Menu(rs.getString("product_name"), rs.getDouble("product_price"),
-                rs.getInt("product_id"), rs.getString("product_category"));
-            return product;
+            ResultSet rs = this.db.query("SELECT * FROM products WHERE product_id = '" + id + "'");
+            while(rs.next()){
+                Menu product = new Menu(rs.getString("product_name"), rs.getDouble("product_price"),
+                    rs.getInt("product_id"), rs.getString("product_category"));
+            
+                return product;
+            }
         } catch (SQLException ex) {
             System.out.println("Houve um erro ao obter um item do menu: " + ex.getMessage());
         }

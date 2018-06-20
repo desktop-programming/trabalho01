@@ -16,7 +16,7 @@ public class FrameReports extends javax.swing.JFrame {
 
     
     ArrayList<Report> storage = new ArrayList<Report>();
-    String name_pattern = "^[A-Za-z ]{3,50}+$";
+    String name_pattern = "^[A-Za-z0-9 ]{3,50}+$";
     String num_pattern = "[1-9, /.]+";
 
     
@@ -302,30 +302,47 @@ public class FrameReports extends javax.swing.JFrame {
          List<Order> orders;
         orders = controller.getAllOrders();
                  
-         int table_id = 0, order_id, product_id, product_quantity, 
-             reference_orderID, i, row, col; 
-         i = row = col = 0;
-         double order_total = 0, product_price;
+         int table_id = 0, order_id, product_id=1, product_quantity, 
+             reference_orderID=1, row, col; 
+         row = col = 0;
+         double order_total, product_price;
          boolean isFinished = true;
+         int biggestOrderNumber=0;
          
-        while(i<orders.size()){
-            reference_orderID = orders.get(i).getOrderId();
-            for(;orders.get(i).getOrderId() == reference_orderID; i++){
-                order_id = orders.get(i).getOrderId();
-                table_id = orders.get(i).getTableId();
-                product_id = orders.get(i).getItemId();
-                product_quantity = orders.get(i).getProductQuantity();
-                product_price = controller.getProductPrice(product_id);
-                isFinished = orders.get(i).orderIsFinished();
-                order_total += product_quantity * product_price; 
-
-               }            
-                // Table fill only if order is finished
-                if(isFinished){
-                    tableOrders.setValueAt(reference_orderID, row, col);
-                    tableOrders.setValueAt(table_id, row, col);
-                    tableOrders.setValueAt(order_total, row, col);
+         for(int i =0; i<orders.size();i++){
+             order_id = orders.get(i).getOrderId();
+             if(order_id>biggestOrderNumber)
+                 biggestOrderNumber = order_id;
+                 
+         }
+             
+         
+        for(int j=1;j<biggestOrderNumber+1;j++){
+            reference_orderID = j;
+            order_total =0;
+            //reference_orderID = orders.get(j).getOrderId();
+            for(int i=0;i<orders.size(); i++){
+                if(orders.get(i).getOrderId() == reference_orderID){
+                    order_id = reference_orderID;
+                    table_id = orders.get(i).getTableId();
+                    product_id = orders.get(i).getItemId();
+                    product_quantity = orders.get(i).getProductQuantity();
+                    product_price = controller.getProduct(product_id).getPrice();
+                    isFinished = orders.get(i).orderIsFinished();
+                    order_total += product_quantity * product_price; 
+                    System.out.println("\n----------\nProduct_id: "+product_id+"\nProduct_price: "+ product_price+"\nOrder_total: "+order_total);
+                    System.out.println("Order_id: "+order_id+"\nReference_orderID: "+reference_orderID);                 
                 }
+            }
+
+            // Table fill only if order is finished
+            if(isFinished){
+                tableOrders.setValueAt(reference_orderID, row, col);
+                tableOrders.setValueAt(table_id, row, col+1);
+                tableOrders.setValueAt(order_total, row, col+2);
+                row++;
+            }
+                
                 
             }     
     }

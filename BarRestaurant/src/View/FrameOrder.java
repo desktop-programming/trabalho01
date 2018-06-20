@@ -286,8 +286,6 @@ public class FrameOrder extends javax.swing.JFrame {
         count_include = 0;
         total_price = 0;
         this.dispose();
-      
-
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

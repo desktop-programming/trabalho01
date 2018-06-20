@@ -20,6 +20,7 @@ public class OrderDAO implements ImplementOrder{
         this.db.execute("INSERT INTO orders (order_id, order_isFinished, table_id, product_quantity, product_id) VALUES (?,?,?,?,?)", 
                     order.getOrderId(), order.orderIsFinished(), order.getTableId(), order.getProductQuantity(), order.getItemId());
         this.db.execute("UPDATE tables SET order_id = ? WHERE table_id=?",order.getOrderId(), order.getTableId());
+        
     }
 
     @Override
@@ -52,7 +53,8 @@ public class OrderDAO implements ImplementOrder{
     @Override
     public List<Order> getTableOrders(int number) {
         list = new ArrayList<Order>();
-        ResultSet rs = this.db.query("SELECT * FROM orders WHERE table_id = '"+number+"'");
+        ResultSet rs = this.db.query("SELECT * FROM orders WHERE table_id = '"+number+"' AND"
+        +" order_isFinished = 0");
        try{
             while(rs.next()){
                 Order order = new Order(rs.getInt("order_id"), rs.getInt("table_id"), rs.getInt("product_id"), rs.getInt("order_isFinished"), rs.getInt("product_quantity"));
@@ -63,6 +65,7 @@ public class OrderDAO implements ImplementOrder{
         } catch (SQLException ex) {
             System.out.println("Erro ao retornar todos os pedidos: " + ex.getMessage());
         }
+
         return null;
     }
     
@@ -79,6 +82,7 @@ public class OrderDAO implements ImplementOrder{
         } catch (SQLException ex) {
             System.out.println("Erro ao retornar todos os pedidos: " + ex.getMessage());
         }
+
         return null;
     }
 }
