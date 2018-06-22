@@ -32,6 +32,7 @@ public class OrderDAO extends DataBaseGeneric implements ImplementOrder{
         mapObj.put("product_id", order.getItemId());
         this.genericInsert(mapObj);
 
+        mapObj.clear();
         //this.db.execute("INSERT INTO orders (order_id, order_isFinished, table_id, product_quantity, product_id) VALUES (?,?,?,?,?)", 
         //            order.getOrderId(), order.orderIsFinished(), order.getTableId(), order.getProductQuantity(), order.getItemId());
         //this.db.execute("UPDATE tables SET order_id = ? WHERE table_id=?",order.getOrderId(), order.getTableId());
