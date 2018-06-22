@@ -5,6 +5,8 @@ public class Employee {
     String address;
     int id;
     String phone;
+    String username;
+    String password;
     
     public Employee(int id, String name, String address, String phone){
         this.name = name;
@@ -17,6 +19,8 @@ public class Employee {
         this.name = name;
         this.address = ""+street+", "+number+", "+neighborhood+", "+city+", "+UF;
         this.phone = phone;
+        this.username = username;
+        this.password = password;
         id++;
     }
     
@@ -31,5 +35,13 @@ public class Employee {
     }
     public int getID(){
         return id;
+    }
+    
+    public String getUsername(){
+        return username;
+    }
+    
+    public String getPassword(){
+        return password;
     }
 }

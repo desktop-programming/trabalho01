@@ -1,6 +1,7 @@
 
 package View;
 
+import Controller.EmployeeController;
 import Model.Employee;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -13,6 +14,8 @@ public class FrameEmployee extends javax.swing.JFrame {
     String name_pattern = "^[A-Za-z ]{1,50}+$";
     String phone_pattern = "\\d{2,3}-\\d{4,5}-\\d{4}";
     String address_pattern = "^[A-Za-z1-9 ]{1,50}+$";
+    
+    EmployeeController controller = new EmployeeController(this);
     
     public FrameEmployee() throws ClassNotFoundException {
         initComponents();
@@ -359,7 +362,7 @@ public class FrameEmployee extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(verifyText()){
-            employee.add(new Employee(getTextName(), getTextStreet(), getTextNumber(), getTextNeighborhood(), getTextCity(), getTextUF(),  getTextPhone(), getTextUsername(), getTextPassword()));
+            controller.insert(new Employee(getTextName(), getTextStreet(), getTextNumber(), getTextNeighborhood(), getTextCity(), getTextUF(),  getTextPhone(), getTextUsername(), getTextPassword()));
             JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
         }
     }//GEN-LAST:event_jButton1ActionPerformed

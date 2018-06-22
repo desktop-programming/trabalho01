@@ -34,6 +34,8 @@ public class EmployeeDAO extends DataBaseGeneric implements ImplementEmployee{
         mapObj.put("employee_name", employee.getName());
         mapObj.put("employee_address", employee.getAddress());
         mapObj.put("employee_phone", employee.getPhone());
+        mapObj.put("employee_username", employee.getUsername());
+        mapObj.put("employee_password", employee.getPassword());
         this.genericInsert(mapObj);        
 //this.db.execute("INSERT INTO java_employee (name) VALUES (?)", employee.getName());
     }
@@ -46,6 +48,8 @@ public class EmployeeDAO extends DataBaseGeneric implements ImplementEmployee{
         mapObj.put("product_name", employee.getName());
         mapObj.put("product_price", employee.getAddress());
         mapObj.put("product_category", employee.getPhone());
+        mapObj.put("employee_username", employee.getUsername());
+        mapObj.put("employee_password", employee.getPassword());
         this.genericUpdate(mapObj, mapCondition);
         //this.db.execute("UPDATE java_employee SET name=? WHERE id=?", employee.getName(), employee.getID());
     }
@@ -60,24 +64,25 @@ public class EmployeeDAO extends DataBaseGeneric implements ImplementEmployee{
 
     @Override
     public List<Employee> getEmployee(String name) {
-        list = new ArrayList<Employee>();
+    /*    list = new ArrayList<Employee>();
         try {
-            ResultSet rs = this.db.query("SELECT * FROM employee WHERE name LIKE '%" + name + "%'");
+            ResultSet rs = this.db.query("SELECT * FROM employees WHERE employee_name LIKE '%" + name + "%'");
             while (rs.next()) { 
                 Employee employee = new Employee(rs.getInt("employee_id"), rs.getString("employee_name"), rs.getString("employee_address"), rs.getString("employee_phone"));
                 list.add(employee);
             }
             return list;
         } catch (SQLException ex) {
-            System.out.println("Houve um erro ao obter um curso: " + ex.getMessage());
+            System.out.println("Houve um erro ao obter um funcionario: " + ex.getMessage());
         }
+        */
         return null;
     }
 
     @Override
     public List<Employee> getAllEmployee() {
         list = new ArrayList<Employee>();
-        ResultSet rs = this.db.query("SELECT id, name FROM java_employee ORDER BY id");
+        ResultSet rs = this.getAll();
         try {
             while (rs.next()) { 
                 Employee employee = new Employee(rs.getInt("employee_id"), rs.getString("employee_name"), rs.getString("employee_address"), rs.getString("employee_phone"));
@@ -85,7 +90,7 @@ public class EmployeeDAO extends DataBaseGeneric implements ImplementEmployee{
             }
             return list;
         } catch (SQLException ex) {
-            System.out.println("Erro ao retornar um curso pelo nome: " + ex.getMessage());
+            System.out.println("Erro ao retornar um funcionario pelo nome: " + ex.getMessage());
         }
         return null;
     }

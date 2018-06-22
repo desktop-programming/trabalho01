@@ -36,7 +36,7 @@ public class DataBase {
     }
     
     private String generateConnectionString(){
-        return "jdbc:" + this.dbType + "://" + this.dbHost + ":" + this.dbPort + "/" + this.dbBase + "?useUnicode=true&characterEncoding=utf-8";
+        return "jdbc:" + this.dbType + "://" + this.dbHost + ":" + this.dbPort + "/" + this.dbBase + "?useUnicode=true&characterEncoding=utf-8&useSSL=false";
     }
     
     public void connect(){
