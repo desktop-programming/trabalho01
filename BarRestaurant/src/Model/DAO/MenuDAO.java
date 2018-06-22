@@ -9,13 +9,20 @@ package Model.DAO;
 import Model.Interfaces.ImplementMenu;
 import Configurations.ConfigurationsMySQL;
 import DataBase.DataBase;
+import DataBase.DataBaseGeneric;
 import Model.Menu;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class MenuDAO implements ImplementMenu{
+public class MenuDAO extends DataBaseGeneric implements ImplementMenu{
+    
+    public MenuDAO(){
+        super(new ConfigurationsMySQL(), "products");
+    }
     
     private List<Menu> list;
     
@@ -23,20 +30,33 @@ public class MenuDAO implements ImplementMenu{
             
     @Override
     public void insert(Menu menu) {
-        this.db.execute("INSERT INTO products (product_id, product_name, product_price, product_category) VALUES (?,?,?,?)", 
-                menu.getID() ,menu.getName(), menu.getPrice(),menu.getCategory());
+        Map<Object, Object> mapObj = new HashMap<>();
+        mapObj.put("product_id", menu.getID());
+        mapObj.put("product_name", menu.getName());
+        mapObj.put("product_price", menu.getPrice());
+        mapObj.put("product_category", menu.getCategory());
+        this.genericInsert(mapObj);
+        //this.db.execute("INSERT INTO products (product_id, product_name, product_price, product_category) VALUES (?,?,?,?)", 
+          //      menu.getID() ,menu.getName(), menu.getPrice(),menu.getCategory());
     }
 
     @Override
     public void update(Menu menu) {
-        this.db.execute("UPDATE products SET product_name=?, product_price=?, product_category=? WHERE product_id=?", 
-                menu.getName(), menu.getPrice(), menu.getCategory() ,menu.getID());
+        Map<Object, Object> mapObj = new HashMap<>();
+        Map<Object, Object> mapCondition = new HashMap<>();
+        mapCondition.put("product_id", menu.getID());
+        mapObj.put("product_name", menu.getName());
+        mapObj.put("product_price", menu.getPrice());
+        mapObj.put("product_category", menu.getCategory());
+        this.genericUpdate(mapObj, mapCondition);
     }
 
     @Override
     public void delete(int id) {
-        this.db.execute("DELETE FROM products WHERE product_id=?", id);
-    }
+        Map<Object, Object> mapObj = new HashMap<>();
+        mapObj.put("product_id", id);
+        this.genericDelete(mapObj);
+      }
 
     @Override
     public List<Menu> getMenu(String name) {
@@ -97,10 +117,10 @@ public class MenuDAO implements ImplementMenu{
     
     public Menu getMenu(int id){
         try {
-            ResultSet rs = this.db.query("SELECT * FROM products WHERE product_id ='" + id + "'");
+            ResultSet rs = this.getOne(id);
             rs.next();
-                Menu product = new Menu(rs.getString("product_name"), rs.getDouble("product_price"),
-                rs.getInt("product_id"), rs.getString("product_category"));
+            Menu product = new Menu(rs.getString("product_name"), rs.getDouble("product_price"),
+            rs.getInt("product_id"), rs.getString("product_category"));
             return product;
         } catch (SQLException ex) {
             System.out.println("Houve um erro ao obter um item do menu: " + ex.getMessage());
