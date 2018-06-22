@@ -8,41 +8,43 @@ package Model.DAO;
 import Model.Interfaces.ImplementTable;
 import Configurations.ConfigurationsMySQL;
 import DataBase.DataBase;
+import DataBase.DataBaseGeneric;
 import Model.Menu;
 import Model.Table;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class TableDAO implements ImplementTable{
+public class TableDAO extends DataBaseGeneric implements ImplementTable{
+    
+    public TableDAO(){
+        super(new ConfigurationsMySQL(), "tables");
+    }
     
     private List<Table> list;
     
     private final DataBase db = new DataBase(new ConfigurationsMySQL());
             
     @Override
-    public void insert(Table table) {
-        this.db.execute("INSERT INTO tables (table_id) VALUES (?)", table.getId());
-    }
-
-    @Override
-    public void update(Table table) {
-       // this.db.execute("UPDATE tables SET id=? WHERE id=?", table.getName(), table.getId());
-    }
-
-    @Override
     public void delete(int id) {
-        this.db.execute("UPDATE tables SET order_id = 0 WHERE table_id = ?",id);
-        this.db.execute("UPDATE orders SET order_isFinished = 1 WHERE table_id=?", id);
+        Map<Object, Object> mapObj = new HashMap<>();
+        Map<Object, Object> mapCondition = new HashMap<>();
+        mapCondition.put("table_id", id);
+        mapObj.put("order_id", 0);
+        this.genericUpdate(mapObj, mapCondition);
+        mapObj.clear();
+        mapObj.put("order_isFinished", 1);
+        this.genericUpdate(mapObj, mapCondition);
     }
     
-
     @Override
     public List<Table> getTable(int number) {
         list = new ArrayList<Table>();
         try {
-            ResultSet rs = this.db.query("SELECT * FROM tables WHERE table_id = '" + number + "'");
+            ResultSet rs = this.getOne(number);
             while (rs.next()) { 
                 Table table = new Table(rs.getInt("table_id"), rs.getInt("order_id"));
                 list.add(table);
@@ -58,7 +60,7 @@ public class TableDAO implements ImplementTable{
     public List<Table> getAllTable() {
         list = new ArrayList<Table>();
         try {
-            ResultSet rs = this.db.query("SELECT * FROM tables");
+            ResultSet rs = this.getAll();
             while (rs.next()) { 
                 Table table = new Table(rs.getInt("table_id"), rs.getInt("order_id"));
                 list.add(table);
@@ -66,39 +68,13 @@ public class TableDAO implements ImplementTable{
             
             return list;
         } catch (SQLException ex) {
-            System.out.println("Houve um erro ao obter uma mesa: " + ex.getMessage());
+            System.out.println("Houve um erro ao obter todas as mesas: " + ex.getMessage());
         }
         return null;
     }
-
-
-   /* @Override
-    public List<Table> getAllTable() {
-        list = new ArrayList<Table>();
-        ResultSet rs = this.db.query("SELECT * FROM order");
-        try {
-            while(rs.next()){
-                Table table = new Table(rs.getInt("table_id"), rs.getInt ("order_id"));
-                list.add(table);
-            }
-            return list;
-        } catch (SQLException ex) {
-            System.out.println("Erro ao retornar todas as mesas: " + ex.getMessage());
-        }
-        return null;
-    }*/
     
     public Menu getMenu(int id){
-        try {
-            ResultSet rs = this.db.query("SELECT * FROM product WHERE product_id '" + id + "'");
-                Menu product = new Menu(rs.getString("product_item"), rs.getDouble("product_price"),
-                        rs.getInt("product_id"), rs.getString("product_category"));
-                    
-            return product;
-        } catch (SQLException ex) {
-            System.out.println("Houve um erro ao obter um item do menu: " + ex.getMessage());
-        }
-        return null;
+        return new MenuDAO().getMenu(id);
     }
 }
 

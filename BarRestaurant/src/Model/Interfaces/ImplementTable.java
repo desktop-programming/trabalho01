@@ -15,10 +15,6 @@ import java.util.List;
 
 public interface ImplementTable{
     
-    public void insert(Table table);
-    
-    public void update(Table table);
-    
     public void delete(int id);
     
     public List<Table> getTable(int number);
