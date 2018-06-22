@@ -28,7 +28,7 @@ public class EmployeeDAO implements ImplementEmployee{
 
     @Override
     public void update(Employee employee) {
-        this.db.execute("UPDATE java_employee SET name=? WHERE id=?", employee.getName(), employee.getId());
+        this.db.execute("UPDATE java_employee SET name=? WHERE id=?", employee.getName(), employee.getID());
     }
 
     @Override
@@ -42,9 +42,7 @@ public class EmployeeDAO implements ImplementEmployee{
         try {
             ResultSet rs = this.db.query("SELECT * FROM employee WHERE name LIKE '%" + name + "%'");
             while (rs.next()) { 
-                Employee employee = new Employee();
-                employee.setId(rs.getInt(1));
-                employee.setName(rs.getString("name"));
+                Employee employee = new Employee(rs.getInt("employee_id"), rs.getString("employee_name"), rs.getString("employee_address"), rs.getString("employee_phone"));
                 list.add(employee);
             }
             return list;
@@ -59,10 +57,8 @@ public class EmployeeDAO implements ImplementEmployee{
         list = new ArrayList<Employee>();
         ResultSet rs = this.db.query("SELECT id, name FROM java_employee ORDER BY id");
         try {
-            while(rs.next()){
-                Employee employee = new Employee();
-                employee.setId(rs.getInt(1));
-                employee.setName(rs.getString("name"));
+            while (rs.next()) { 
+                Employee employee = new Employee(rs.getInt("employee_id"), rs.getString("employee_name"), rs.getString("employee_address"), rs.getString("employee_phone"));
                 list.add(employee);
             }
             return list;

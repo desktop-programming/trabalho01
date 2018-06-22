@@ -359,9 +359,7 @@ public class FrameEmployee extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         if(verifyText()){
-            employee.add(new Employee(txtName.getText(),
-                    txtPhone.getText(),
-                    txtAddress.getText()));
+            employee.add(new Employee(getTextName(), getTextStreet(), getTextNumber(), getTextNeighborhood(), getTextCity(), getTextUF(),  getTextPhone(), getTextUsername(), getTextPassword()));
             JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -483,7 +481,7 @@ public class FrameEmployee extends javax.swing.JFrame {
         txtAddress3.setText(string);
     }
     
-    public void setTextNeighboor(String string) {
+    public void setTextNeighborhood(String string) {
         txtAddress2.setText(string);
     }
 
@@ -493,6 +491,14 @@ public class FrameEmployee extends javax.swing.JFrame {
 
     public void setTextUF(String string) {
         txtAddress5.setText(string);
+    }
+    
+    public void setTextUsername(String string){
+        txtLogin.setText(string);
+    }
+    
+    public void setTextPassword(String string){
+        txtPassword.setText(string);
     }
 
     public String getTextName() {
@@ -519,7 +525,7 @@ public class FrameEmployee extends javax.swing.JFrame {
          return txtAddress3.getText();
     }
     
-    public String getTextNeighboor( ) {
+    public String getTextNeighborhood( ) {
         return txtAddress2.getText();
     }
 
@@ -530,4 +536,13 @@ public class FrameEmployee extends javax.swing.JFrame {
     public String getTextUF( ) {
         return txtAddress5.getText();
     }
+    
+    public String getTextUsername(){
+        return txtLogin.getText();
+    }
+    
+    public String getTextPassword(){
+        return txtPassword.getText();
+    }
+    
 }
