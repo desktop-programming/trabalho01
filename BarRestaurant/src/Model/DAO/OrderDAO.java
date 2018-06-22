@@ -40,7 +40,7 @@ public class OrderDAO implements ImplementOrder{
         try {
             ResultSet rs = this.db.query("SELECT * FROM orders WHERE order_id = '" + number + "'");
             while (rs.next()) { 
-                Order order = new Order(rs.getInt("order_id"), rs.getInt("table_id"), rs.getInt("item_id"), rs.getInt("order_isFinished"),rs.getInt("product_quantity"));
+                Order order = new Order(rs.getInt("order_id"), rs.getInt("table_id"), rs.getInt("product_id"), rs.getInt("order_isFinished"),rs.getInt("product_quantity"));
                 list.add(order);
             }
             return list;

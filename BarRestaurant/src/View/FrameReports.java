@@ -313,10 +313,8 @@ public class FrameReports extends javax.swing.JFrame {
              order_id = orders.get(i).getOrderId();
              if(order_id>biggestOrderNumber)
                  biggestOrderNumber = order_id;
-                 
          }
-             
-         
+
         for(int j=1;j<biggestOrderNumber+1;j++){
             reference_orderID = j;
             order_total =0;

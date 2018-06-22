@@ -17,11 +17,7 @@ import java.util.List;
 
 public interface ImplementReport{
     
-    public void insert(Report storage);
-    
-    public void update(Report storage);
-    
-    public void delete(int id);
+
     
     public List<Order> getAllOrders();
     
