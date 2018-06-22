@@ -109,6 +109,7 @@ public class DataBaseGeneric extends DataBase {
         this.execute(sql.toString(), list);
     }
     
+    
     public void genericUpdate(Map<Object, Object> mapObj, Map<Object, Object> mapCondition){
         this.checkConnection();
         if(!this.checkEmptyTable())
@@ -135,6 +136,59 @@ public class DataBaseGeneric extends DataBase {
 
         sql.append("UPDATE");
         sql.append(" ").append(this.table);
+        sql.append(" SET");
+        sql.append(" ");
+
+        if (!mapObj.isEmpty()){
+            for (Map.Entry<Object, Object> entry : mapObj.entrySet()) {
+                sql.append(entry.getKey()).append("=").append("?");
+                sql.append(",");
+                list.add(entry.getValue());
+            }
+        }
+
+        sql = new StringBuilder(sql.subSequence(0, sql.length() - 1));
+        sql.append(" WHERE");
+        sql.append(" ");
+
+        if (!mapCondition.isEmpty()){
+            for (Map.Entry<Object, Object> entry : mapCondition.entrySet()) {
+                sql.append(entry.getKey()).append("=").append("?");
+                sql.append(",");
+                list.add(entry.getValue());
+            }
+        }
+
+        sql = new StringBuilder(sql.subSequence(0, sql.length() - 1));
+
+        this.execute(sql.toString(), list);
+    }
+     public void genericUpdate(Map<Object, Object> mapObj, Map<Object, Object> mapCondition, String tbl){
+        this.checkConnection();
+        if(!this.checkEmptyTable())
+            return;
+        
+        StringBuilder sql = new StringBuilder();
+        ArrayList<Object> list = new ArrayList<>();
+
+        if(!mapObj.isEmpty()){
+            for(Map.Entry<Object, Object> entry : mapObj.entrySet()) {
+                if(entry.getValue() == null || entry.getValue().equals("")) {
+                    mapObj.remove(entry.getKey());
+                }
+            }
+        }
+
+        if(!mapCondition.isEmpty()){
+            for(Map.Entry<Object, Object> entry : mapCondition.entrySet()) {
+                if(entry.getValue() == null || entry.getValue().equals("")) {
+                    mapCondition.remove(entry.getKey());
+                }
+            }
+        }
+
+        sql.append("UPDATE");
+        sql.append(" ").append(tbl);
         sql.append(" SET");
         sql.append(" ");
 

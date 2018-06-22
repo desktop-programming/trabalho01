@@ -354,7 +354,6 @@ public class FrameTable extends javax.swing.JFrame {
              table_id = tables.get(i).getId();
              orders = controller.getOrders(table_id);
              order_id = tables.get(i).getOrderId();
-             
             tableTable.setValueAt(table_id , i, 0);
             if(order_id>0 && !orders.isEmpty()){
                 tableTable.setValueAt("Ocupada" , i, 1);   

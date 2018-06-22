@@ -37,7 +37,7 @@ public class TableDAO extends DataBaseGeneric implements ImplementTable{
         this.genericUpdate(mapObj, mapCondition);
         mapObj.clear();
         mapObj.put("order_isFinished", 1);
-        this.genericUpdate(mapObj, mapCondition);
+        this.genericUpdate(mapObj, mapCondition, "orders");
     }
     
     @Override

@@ -29,6 +29,10 @@ public class ReportsController {
     public List<Order> getOrderItems(int id){
         return implementReport.getOrderItems(id);
     }
+    
+    public void disconnect(){
+   
+    }
 
    /* public void filterTable(String name){
         list = implementStorage.getStorage(name);

@@ -26,17 +26,19 @@ public class OrderDAO extends DataBaseGeneric implements ImplementOrder{
     public void insert(Order order) {
         Map<Object, Object> mapObj = new HashMap<>();
         mapObj.put("order_id", order.getOrderId());
-        mapObj.put("order_isFinished", order.orderIsFinished());
+        mapObj.put("order_isFinished", 0);
         mapObj.put("table_id", order.getTableId());
         mapObj.put("product_quantity", order.getProductQuantity());
         mapObj.put("product_id", order.getItemId());
         this.genericInsert(mapObj);
-
         mapObj.clear();
+        mapObj.put("order_id", order.getOrderId());
+        Map<Object, Object> mapCondition = new HashMap<>();
+        mapCondition.put("table_id", order.getTableId());
         //this.db.execute("INSERT INTO orders (order_id, order_isFinished, table_id, product_quantity, product_id) VALUES (?,?,?,?,?)", 
         //            order.getOrderId(), order.orderIsFinished(), order.getTableId(), order.getProductQuantity(), order.getItemId());
         //this.db.execute("UPDATE tables SET order_id = ? WHERE table_id=?",order.getOrderId(), order.getTableId());
-        
+        this.genericUpdate(mapObj, mapCondition,"tables");
     }
 
     @Override
@@ -69,12 +71,12 @@ public class OrderDAO extends DataBaseGeneric implements ImplementOrder{
     @Override
     public List<Order> getTableOrders(int number) {
         list = new ArrayList<Order>();
-        ResultSet rs = this.db.query("SELECT * FROM orders WHERE table_id = '"+number+"' AND"
-        +" order_isFinished = 0");
+        ResultSet rs = this.db.query("SELECT * FROM orders WHERE table_id = '"+number+"' AND order_isFinished = 0");
        try{
             while(rs.next()){
                 Order order = new Order(rs.getInt("order_id"), rs.getInt("table_id"), rs.getInt("product_id"), rs.getInt("order_isFinished"), rs.getInt("product_quantity"));
                 list.add(order);
+                System.out.println(order.getOrderId());
             }
             return list;
 

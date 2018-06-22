@@ -74,9 +74,9 @@ public class TableController {
    public List<Order> getOrders(int table_id){
         List<Order> orders = new ArrayList<>();
         implementOrder = new OrderDAO();
-        orders = implementOrder.getTableOrders(table_id);
+        orders =implementOrder.getTableOrders(table_id);
         return orders;
-    }
+        }
            
    public Menu getMenu(int id){
         MenuDAO implementMenu = new MenuDAO();

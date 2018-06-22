@@ -12,7 +12,6 @@ package Model.Interfaces;
 
 import Model.Menu;
 import Model.Order;
-import Model.Report;
 import java.util.List;
 
 public interface ImplementReport{
@@ -24,4 +23,5 @@ public interface ImplementReport{
     public List<Order> getOrderItems(int order_id);
     
     public Menu getMenu(int id);
+
 }

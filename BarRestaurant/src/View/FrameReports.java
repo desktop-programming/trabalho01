@@ -18,11 +18,12 @@ public class FrameReports extends javax.swing.JFrame {
     ArrayList<Report> storage = new ArrayList<Report>();
     String name_pattern = "^[A-Za-z0-9 ]{3,50}+$";
     String num_pattern = "[1-9, /.]+";
-
+    ReportsController controller = new ReportsController(this);
     
     public FrameReports() throws ClassNotFoundException {
         initComponents();
         fillOrders();
+        
         this.setSize(600,596);
         this.setLocationRelativeTo(null);
         this.setTitle("Histórico");
@@ -60,6 +61,11 @@ public class FrameReports extends javax.swing.JFrame {
         tableOrderItems = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         tableOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -226,6 +232,12 @@ public class FrameReports extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tableOrderItemsMouseClicked
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+    
+        
+        controller.disconnect();        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowClosed
+
     /**
      * @param args the command line arguments
      */
@@ -298,7 +310,7 @@ public class FrameReports extends javax.swing.JFrame {
     
     
     private void fillOrders(){
-         ReportsController controller = new ReportsController(this);
+
          List<Order> orders;
         orders = controller.getAllOrders();
                  
@@ -340,9 +352,7 @@ public class FrameReports extends javax.swing.JFrame {
                 tableOrders.setValueAt(order_total, row, col+2);
                 row++;
             }
-                
-                
-            }     
+        }     
     }
     
     private void fillOrderItems(){
