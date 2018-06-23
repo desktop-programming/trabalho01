@@ -1,11 +1,14 @@
 package View;
 
+import Controller.EmployeeController;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author igorv
  */
 public class FrameLogin extends javax.swing.JFrame {
-
+    EmployeeController controller = new EmployeeController();
     /**
      * Creates new form loginFrame
      */
@@ -127,9 +130,19 @@ public class FrameLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        FrameMainMenu frame = new FrameMainMenu();
-        frame.setVisible(true);
-        this.dispose();
+       String userExists=
+       controller.getLogin(txtUser.getText(), txtPassword.getText());
+       
+        if(userExists != null){
+            FrameMainMenu frame = new FrameMainMenu(userExists);
+            frame.setVisible(true);
+            this.dispose();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Usuario não encontrado, verifique login e senha.", 
+                    "Login não permitido!", JOptionPane.INFORMATION_MESSAGE);
+        }
+            
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void txtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserActionPerformed

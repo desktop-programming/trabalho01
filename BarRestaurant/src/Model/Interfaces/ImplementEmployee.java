@@ -24,4 +24,6 @@ public interface ImplementEmployee{
     public List<Employee> getEmployee(String name);
     
     public List<Employee> getAllEmployee();
+    
+    public String getLogin(String user, String pass);
 }

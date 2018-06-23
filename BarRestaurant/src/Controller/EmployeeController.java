@@ -7,7 +7,6 @@ import Model.Interfaces.ImplementEmployee;
 //import Model.Table.TabelModelEmployee;
 import View.FrameEmployee;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 public class EmployeeController {
     private final FrameEmployee panel;
@@ -19,8 +18,13 @@ public class EmployeeController {
         implementEmployee = new EmployeeDAO();
         list = implementEmployee.getAllEmployee();
     }
+    public EmployeeController(){
+        this.panel = null;
+        implementEmployee = new EmployeeDAO();
+    }
     
     public void reset(){
+        panel.setTextNumber("");
         panel.setTextName("");
         panel.setTextCity("");
         panel.setTextId("");
@@ -29,6 +33,8 @@ public class EmployeeController {
         panel.setTextZipcode("");
         panel.setTextUF("");
         panel.setTextStreet("");
+        panel.setTextUsername("");
+        panel.setTextPassword("");
 
         //panel.getTabelEmployee().clearSelection();
     }
@@ -55,7 +61,8 @@ public class EmployeeController {
         implementEmployee.update(employee);
     }
     
-    public void delete(){
+    public void delete(int id){
+        implementEmployee.delete(id);
        /* if (panel.getTxtID().getText().trim().isEmpty()){
             JOptionPane.showMessageDialog(panel, "Sem dados para excluir.",null, JOptionPane.ERROR_MESSAGE);
             return;
@@ -67,11 +74,13 @@ public class EmployeeController {
     public List<Employee> getEmployee(String name){
         return implementEmployee.getEmployee(name);
     }
+    
+    public List<Employee> getAllEmployee(){
+        return implementEmployee.getAllEmployee();
+    }
 
-    public void filterTable(String name){
-        /*list = implementEmployee.getEmployee(name);
-        panel.getTabelEmployee().setModel(new TabelModelEmployee(list));
-        */    
-        }
+    public String getLogin(String user, String pass){
+        return implementEmployee.getLogin(user,pass);
+    }
 
 }

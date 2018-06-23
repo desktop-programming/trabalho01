@@ -12,16 +12,16 @@ public class Employee {
         this.name = name;
         this.address = address;
         this.phone = phone;
-        id++;
+        this.id = id;
     }
     
-    public Employee(String name, String street, String number, String neighborhood, String city, String UF, String phone, String username, String password){
+    public Employee(int id,String name, String street, String number, String neighborhood, String city, String UF, String phone, String username, String password){
         this.name = name;
         this.address = ""+street+", "+number+", "+neighborhood+", "+city+", "+UF;
         this.phone = phone;
         this.username = username;
         this.password = password;
-        id++;
+        this.id = id;
     }
     
     public String getName(){

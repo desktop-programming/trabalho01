@@ -340,8 +340,7 @@ public class FrameReports extends javax.swing.JFrame {
                     product_price = controller.getProduct(product_id).getPrice();
                     isFinished = orders.get(i).orderIsFinished();
                     order_total += product_quantity * product_price; 
-                    System.out.println("\n----------\nProduct_id: "+product_id+"\nProduct_price: "+ product_price+"\nOrder_total: "+order_total);
-                    System.out.println("Order_id: "+order_id+"\nReference_orderID: "+reference_orderID);                 
+                                 
                 }
             }
 

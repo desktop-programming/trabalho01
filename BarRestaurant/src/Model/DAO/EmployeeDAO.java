@@ -25,18 +25,17 @@ public class EmployeeDAO extends DataBaseGeneric implements ImplementEmployee{
     }
     
     private List<Employee> list;
-    
-    private final DataBase db = new DataBase(new ConfigurationsMySQL());
             
     @Override
     public void insert(Employee employee) {
         Map<Object, Object> mapObj = new HashMap<>();
+        mapObj.put("employee_id", employee.getID());
         mapObj.put("employee_name", employee.getName());
         mapObj.put("employee_address", employee.getAddress());
         mapObj.put("employee_phone", employee.getPhone());
         mapObj.put("employee_username", employee.getUsername());
         mapObj.put("employee_password", employee.getPassword());
-        this.genericInsert(mapObj);        
+        this.genericInsert(mapObj);     
 //this.db.execute("INSERT INTO java_employee (name) VALUES (?)", employee.getName());
     }
 
@@ -45,9 +44,9 @@ public class EmployeeDAO extends DataBaseGeneric implements ImplementEmployee{
         Map<Object, Object> mapObj = new HashMap<>();
         Map<Object, Object> mapCondition = new HashMap<>();
         mapCondition.put("employee_id", employee.getID());
-        mapObj.put("product_name", employee.getName());
-        mapObj.put("product_price", employee.getAddress());
-        mapObj.put("product_category", employee.getPhone());
+        mapObj.put("employee_name", employee.getName());
+        mapObj.put("employee_address", employee.getAddress());
+        mapObj.put("employee_phone", employee.getPhone());
         mapObj.put("employee_username", employee.getUsername());
         mapObj.put("employee_password", employee.getPassword());
         this.genericUpdate(mapObj, mapCondition);
@@ -91,6 +90,17 @@ public class EmployeeDAO extends DataBaseGeneric implements ImplementEmployee{
             return list;
         } catch (SQLException ex) {
             System.out.println("Erro ao retornar um funcionario pelo nome: " + ex.getMessage());
+        }
+        return null;
+    }
+    public String getLogin(String user, String pass){
+        ResultSet rs = this.getLoginGeneric(user,pass);
+        try {
+            if (rs.next()) { 
+                return rs.getString("employee_name");
+            }
+        } catch (SQLException ex) {
+            System.out.println("Usuario nao encontrado " + ex.getMessage());
         }
         return null;
     }

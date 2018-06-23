@@ -48,6 +48,13 @@ public class DataBaseGeneric extends DataBase {
         String parameter = this.table.substring(0, this.table.length()-1);
         return this.query("SELECT * FROM " + this.table + " WHERE "+parameter+"_id = ?", id);
     }
+    public ResultSet getLoginGeneric(String user, String pass){
+        this.checkConnection();
+        if(!this.checkEmptyTable())
+            return null;
+        String parameter = this.table.substring(0, this.table.length()-1);
+        return this.query("SELECT * FROM " + this.table + " WHERE "+parameter+"_username = ? AND "+parameter+"_password = ?", user,pass);
+    }
     
     public ResultSet getAll(){
         this.checkConnection();
